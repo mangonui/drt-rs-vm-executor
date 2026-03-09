@@ -1,0 +1,38 @@
+[package]
+name = "dharitri-vm-executor-wasmer"
+version = "2.0.0"
+edition = "2024"
+publish = false # cannot publish while still working with unpublished wasmer fork
+
+authors = ["DharitrI <contact@dharitri.com>"]
+license = "GPL-3.0-only"
+readme = "README.md"
+repository = "https://github.com/mangonui/drt-rs-vm-executor"
+homepage = "https://www.dharitri.org/"
+documentation = "https://docs.dharitri.org/"
+description = "DharitrI VM Wasmer adapter (production)"
+keywords = ["dharitri", "blockchain", "VM"]
+categories = ["cryptography::cryptocurrencies"]
+
+[lib]
+
+[dependencies.dharitri-vm-executor]
+# Not setting the path = "../vm-executor" here, because it would break
+# external consumers, which import it via gir revision. The path is overridden
+# in the workspace Cargo.toml via [patch.crates-io].
+version = "2.0.0"
+
+[dependencies]
+wasmer = { git = "https://github.com/TerraDharitri/wasmer", rev = "73f2111abf85700dec4f11fb23ece01abc2065e3", default-features = false, features = [
+    "singlepass",
+    "sys",
+    "universal",
+    "wat",
+] }
+
+wasmer-vm = { git = "https://github.com/TerraDharitri/wasmer", rev = "73f2111abf85700dec4f11fb23ece01abc2065e3" }
+wasmer-types = { git = "https://github.com/TerraDharitri/wasmer", rev = "73f2111abf85700dec4f11fb23ece01abc2065e3" }
+
+log = "0.4"
+loupe = "0.1.3"
+thiserror = "2.0"
